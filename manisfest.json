@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "version": "0.0.1",
+    "name": "Tab Context Groups",
+    "description": "A Chrome extension to manage tab context groups.",
+    "author": "souzaDanielli",
+
+    "permissions": [
+        "tabs", 
+        "storage",
+        "tabGroups"
+    ], 
+
+    "action": {
+        "default_popup": "popup.html"
+    },
+
+    "background": {
+        "service_worker": "background.js"
+    }
+}
