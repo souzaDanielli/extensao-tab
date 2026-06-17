@@ -25,10 +25,25 @@ async function restoreContext() {
     //lê os contextos salvos
     const getTabs = await chrome.storage.local.get("contexts");
     const contexts = getTabs.contexts || {};
+
     for (const tab of contexts["contexto"].tabs) {
         chrome.tabs.create({
             url: tab.url,
             pinned: tab.pinned
         })
     };
+}
+
+async function closeContext() {
+    // salva o estado atual das tabs
+    await saveContext();
+
+    // pega as abas abertas que tem id
+    const tabs = await chrome.tabs.query({currentWindow: true});
+    const tabIds = tabs.map(tab => tab.id);
+
+    await chrome.tabs.create({url: "chrome://newtab", active: true});
+
+    //fecha as tabs
+    chrome.tabs.remove(tabIds);
 }
